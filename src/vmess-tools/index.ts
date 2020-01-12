@@ -1,10 +1,21 @@
 import {VMessV2} from "./types";
 
-const v1SearchToV2Mapper = {
-  remarks: 'ps',
+const v1ToV2Mapper = {
+  remarks:    'ps',
+  obfsParam:  'host',
+  obfs:       'net',
 };
 
-const converter = {
+const v2ToV1Mapper = {
+  ps:     'remarks',
+  host:   'obfsParam',
+  net:   'obfs',
+};
+
+const v1Converter = {
+};
+
+const v2Converter = {
   ps: v => encodeURIComponent(v),
 };
 
@@ -28,8 +39,8 @@ export const parseV1Link = (v1Link: string): VMessV2 => {
   const search = {};
   const searchParams = new URLSearchParams(searchStr);
   searchParams.forEach((value, key) => {
-    const newKey = v1SearchToV2Mapper[key] || key;
-    search[newKey] = (converter[newKey] ? converter[newKey](value) : value);
+    const newKey = v1ToV2Mapper[key] || key;
+    search[newKey] = (v2Converter[newKey] ? v2Converter[newKey](value) : value);
   });
   return {
     v: '2',
@@ -48,12 +59,14 @@ export const parseV2Link = (link: string): VMessV2 => {
 export const toV1Link = (link: string) => {
   if (!isVMessLink(link)) throw new Error('不是合法的 VMess 链接');
   if (isVMessLinkV1(link)) return link;
-  const { type, id, port, add, ...others} = parseV2Link(link);
+  const { v, type, id, port, add, ...others} = parseV2Link(link);
   const searchParams = new URLSearchParams();
   Object.keys(others).forEach(k => {
-    searchParams.append(k, others[k]);
+    const newKey = v2ToV1Mapper[k] || k;
+    const newValue = v1Converter[newKey] ? v1Converter[newKey](others[k]) : others[k];
+    searchParams.append(newKey, newValue);
   });
-  return `vmess://${btoa(`${type}:${id}@${add}:${port}`)}?${searchParams.toString()}`;
+  return `vmess://${btoa(`${type}:${id}@${add}:${port}`)}?${decodeURIComponent(searchParams.toString())}`;
 };
 
 export const toV2Link = (link: string) => {
