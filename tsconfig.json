@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "alwaysStrict": true,
+    "baseUrl": ".",
+    "skipDefaultLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "removeComments": true
+  }
+}

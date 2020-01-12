@@ -24,7 +24,7 @@ export const parseV1Link = (v1Link: string): VMessV2 => {
     throw new Error('不是 v1 版本的 VMess 链接');
   }
   const [main, searchStr] = v1Link.replace(/^vmess:\/\//i, '').split('?');
-  const [type, id, host, port] = atob(main).split(/[@:]/);
+  const [type, id, add, port] = atob(main).split(/[@:]/);
   const search = {};
   const searchParams = new URLSearchParams(searchStr);
   searchParams.forEach((value, key) => {
@@ -35,28 +35,31 @@ export const parseV1Link = (v1Link: string): VMessV2 => {
     v: '2',
     type,
     id,
-    host,
+    add,
     port: Number(port),
     ...search,
   };
 };
 
-export const parseV2Link = (v2Link: string): VMessV2 => {
-  return JSON.parse(atob(v2Link.replace(/^vmess:\/\//i, '')));
+export const parseV2Link = (link: string): VMessV2 => {
+  return JSON.parse(atob(link.replace(/^vmess:\/\//i, '')));
 };
 
-export const toV1Link = (v2Link: string) => {
-  if (!isVMessLink(v2Link)) throw new Error('不是合法的 VMess 链接');
-  if (isVMessLinkV1(v2Link)) return v2Link;
+export const toV1Link = (link: string) => {
+  if (!isVMessLink(link)) throw new Error('不是合法的 VMess 链接');
+  if (isVMessLinkV1(link)) return link;
+  const { type, id, port, add, ...others} = parseV2Link(link);
+  const searchParams = new URLSearchParams();
+  Object.keys(others).forEach(k => {
+    searchParams.append(k, others[k]);
+  });
+  return `vmess://${btoa(`${type}:${id}@${add}:${port}`)}?${searchParams.toString()}`;
 };
 
-export const toV2Link = (v1Link: string) => {
-  if (!isVMessLink(v1Link)) throw new Error('不是合法的 VMess 链接');
-  if (isVMessLinkV2(v1Link)) return v1Link;
-  const v2 = parseV1Link(v1Link);
+export const toV2Link = (link: string) => {
+  if (!isVMessLink(link)) throw new Error('不是合法的 VMess 链接');
+  if (isVMessLinkV2(link)) return link;
+  const v2 = parseV1Link(link);
   return `vmess://${btoa(JSON.stringify({ ...v2, v: '2' }))}`;
 };
 
-export const vMessLink = (link: string) => {
-
-};

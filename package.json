@@ -1,0 +1,17 @@
+{
+  "name": "v2ray-tools",
+  "version": "1.0.0",
+  "description": "v2ray-tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn father test"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "father": "^2.29.1",
+    "typescript": "^3.7.4"
+  }
+}
