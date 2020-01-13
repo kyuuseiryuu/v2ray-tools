@@ -60,6 +60,9 @@ export const parseV1Link = (v1Link: string): VMessV2 => {
 };
 
 export const parseV2Link = (link: string): VMessV2 => {
+  if (!isVMessLinkV2(link)) {
+    throw new Error('不是 v2 版本的 VMess 链接');
+  }
   return JSON.parse(atob(link.replace(/^vmess:\/\//i, '')));
 };
 
