@@ -4,7 +4,8 @@
   "description": "v2ray-tools",
   "main": "index.js",
   "scripts": {
-    "test": "yarn father test"
+    "test": "father test",
+    "build": "father build --esm --cjs"
   },
   "author": "",
   "license": "MIT",
