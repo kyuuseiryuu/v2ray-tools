@@ -9,5 +9,8 @@
     "declaration": true,
     "declarationDir": "types",
     "removeComments": true
-  }
+  },
+  "exclude": [
+    "/**/__test__/**/*"
+  ]
 }
