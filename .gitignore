@@ -1,5 +1,8 @@
 /node_modules
 /coverage
 /.idea
+/.docz
+/.doc
 /dist
 yarn.lock
+*.tgz

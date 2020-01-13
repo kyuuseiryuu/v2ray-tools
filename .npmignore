@@ -1,5 +1,9 @@
 /__test__
 /coverage
 /.idea
+/.doc
+/.docz
 /src
 tsconfig.json
+.fatherrc.js
+*.tgz

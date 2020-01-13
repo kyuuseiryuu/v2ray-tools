@@ -8,9 +8,11 @@
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "types",
-    "removeComments": true
+    "removeComments": true,
+    "jsx": "react"
   },
   "exclude": [
-    "/**/__test__/**/*"
+    "/**/__test__/**/*",
+    "/**/__doc__/**/*"
   ]
 }
