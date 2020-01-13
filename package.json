@@ -9,8 +9,8 @@
     "build": "father build --esm --cjs",
     "dev": "father doc dev",
     "build-doc": "father doc build",
-    "before-deploy": "build-doc",
-    "dep": "gh-pages -d .doc"
+    "predeploy": "yarn build-doc",
+    "deploy": "gh-pages -d .doc"
   },
   "author": "",
   "license": "MIT",
