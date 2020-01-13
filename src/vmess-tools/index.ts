@@ -19,6 +19,11 @@ const v2Converter = {
   ps: v => encodeURIComponent(v),
 };
 
+const tryToParseJson = (str: string): any => {
+  try {
+    return JSON.parse(str);
+  } catch (e) {}
+};
 
 export const isVMessLink = (link: string): boolean => /^vmess:\/\//i.test(link);
 
@@ -27,7 +32,9 @@ export const isVMessLinkV1 = (link: string): boolean => {
 };
 
 export const isVMessLinkV2 = (link: string): boolean => {
-  return isVMessLink(link) && !link.includes('?');
+  return isVMessLink(link)
+    && !link.includes('?')
+    && tryToParseJson(atob(link.replace(/^vmess:\/\//i, '')));
 };
 
 export const parseV1Link = (v1Link: string): VMessV2 => {
