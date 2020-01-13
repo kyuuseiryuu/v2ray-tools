@@ -2,7 +2,8 @@
   "name": "v2ray-tools",
   "version": "1.0.0",
   "description": "v2ray-tools",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "scripts": {
     "test": "father test",
     "build": "father build --esm --cjs"
