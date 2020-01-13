@@ -1,2 +1,4 @@
 
-export * from './vmess-tools';
+import * as VMessTools from './vmess-tools';
+
+export { VMessTools };

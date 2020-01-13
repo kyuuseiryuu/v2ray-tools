@@ -1,5 +1,5 @@
 {
-  "name": "v2ray-tools",
+  "name": "@kyuuseiryuu/v2ray-tools",
   "version": "1.0.0",
   "description": "v2ray-tools",
   "main": "dist/index.js",
