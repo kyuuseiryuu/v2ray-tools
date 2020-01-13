@@ -1,4 +1,4 @@
-import { VMessTools } from '../src/index';
+import { VMessTools } from '../dist';
 const { isVMessLink, parseV1Link, parseV2Link, toV1Link, toV2Link } = VMessTools;
 
 const v1Link = 'vmess://bm9uZTo0NjFiNzM3Mi1iMjg2LTRkZTgtODJlNi0yMWYxMzAxMzFmMDRAbHMuaGt0bHMubWw6NjAxMjA=?remarks=%E9%82%80%E8%AF%B7%E7%A0%81NEUK.%E8%B0%B7%E6%AD%8C%E6%90%9CNEUK%E5%85%AC%E7%9B%8A%E5%8A%A0%E9%80%9F&cert=';
