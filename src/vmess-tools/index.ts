@@ -33,16 +33,22 @@ const tryAToB = (encoded: string) => {
   } catch (e) {}
 };
 
-export const isVMessLink = (link: string): boolean => /^vmess:\/\//i.test(link);
+export const isVMessLink = (link: string): boolean => {
+  return /^vmess:\/\//i.test(link) && (
+    Boolean(parseV1Link(link))
+    || Boolean(parseV2Link(link))
+  );
+};
 
 export const isVMessLinkV1 = (link: string): boolean => {
-  return /^vmess:\/\//i.test(link) && link.includes('?');
+  const linkBody = link.replace(/^vmess:\/\//i, '');
+  return linkBody.includes('?');
 };
 
 export const isVMessLinkV2 = (link: string): boolean => {
-  return isVMessLink(link)
-    && !link.includes('?')
-    && tryToParseJson(tryAToB(link.replace(/^vmess:\/\//i, '')));
+  const linkBody = link.replace(/^vmess:\/\//i, '');
+  return !linkBody.includes('?')
+    && tryToParseJson(tryAToB(linkBody));
 };
 
 export const parseV1Link = (v1Link: string): VMessV2 | undefined => {

@@ -4,6 +4,10 @@ const { isVMessLink, parseV1Link, parseV2Link, toV1Link, toV2Link } = VMessTools
 const v1Link = 'vmess://bm9uZTo0NjFiNzM3Mi1iMjg2LTRkZTgtODJlNi0yMWYxMzAxMzFmMDRAbHMuaGt0bHMubWw6NjAxMjA=?remarks=%E9%82%80%E8%AF%B7%E7%A0%81NEUK.%E8%B0%B7%E6%AD%8C%E6%90%9CNEUK%E5%85%AC%E7%9B%8A%E5%8A%A0%E9%80%9F&cert=';
 const v2Link = 'vmess://eyJhZGQiOiJ1bmkua2l0c3VuZWJpLmZ1biIsImFpZCI6IjAiLCJob3N0IjoiIiwiaWQiOiI5NTEzNzg1Ny03MGZhLTRhYzgtOGY5MC00ZTIwYWViNjYyY2YiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicG9ydCI6MTAwMjUsInBzIjoiU1NSVE9PTC5DT00iLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=';
 describe('test vmess-tools', () => {
+  test('test isVMessLink', () => {
+    const vmess = 'vmess://this_is_not_a_vmess_link';
+    expect(isVMessLink(vmess)).toBeFalsy();
+  });
   test('test parseV1Link', () => {
     const v2Obj = parseV1Link(v1Link);
     expect(v2Obj).toHaveProperty('add');
