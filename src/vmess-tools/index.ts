@@ -1,3 +1,5 @@
+import atob from 'atob';
+import btoa from 'btoa';
 import {VMessV2} from "./types";
 
 const v1ToV2Mapper = {
