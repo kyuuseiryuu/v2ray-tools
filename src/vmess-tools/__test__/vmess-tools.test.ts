@@ -39,4 +39,11 @@ describe('test vmess-tools', () => {
     const l1_1 = toV1Link(l2);
     expect(l1_1).toEqual(l1);
   });
+  test('test v2 多次转换', () => {
+    const l1 = toV1Link(v2Link);
+    const l2 = toV2Link(l1);
+    const a = parseV2Link(v2Link);
+    const b = parseV2Link(l2);
+    expect(a).toMatchObject(b);
+  });
 });
