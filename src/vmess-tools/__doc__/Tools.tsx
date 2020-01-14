@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Empty, Form, Icon, Input, Popover} from "antd";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Empty, Form, Icon, Input, message, Popover} from "antd";
 import {toV1Link, toV2Link} from "../index";
 import QRCode from 'qrcode.react';
+import copy from 'clipboard-copy';
 
 interface Props {
 }
@@ -11,14 +12,20 @@ interface PopoverQRCodeProps {
 }
 
 const PopoverQRCode: React.FC<PopoverQRCodeProps> = (props) => {
+  const handleCopy = useCallback(() => {
+    copy(props.data).then(() => {
+      message.success('已复制到剪切板');
+    });
+  }, [props.data]);
   return (
     <span>
       <Popover
         placement={'right'}
         content={props.data ? (<QRCode value={props.data} />) : (<Empty />)}
       >
-      {props.children}&nbsp;{props.data && <a><Icon type={'qrcode'} /></a> }
+      {props.children}&emsp;{props.data && <a><Icon type={'qrcode'} /></a>}
       </Popover>
+      {props.data && (<a>&emsp;<Icon onClick={handleCopy} type={'copy'} /></a>)}
     </span>
   );
 };
