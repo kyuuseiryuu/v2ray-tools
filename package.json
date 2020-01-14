@@ -11,7 +11,7 @@
     "build-doc": "father doc build",
     "predeploy": "yarn build-doc",
     "deploy": "gh-pages -d .doc",
-    "dep": "yarn build && yarn deploy && npm publish --access=public"
+    "dep": "yarn build && yarn deploy"
   },
   "author": "",
   "license": "MIT",
