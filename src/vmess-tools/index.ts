@@ -83,7 +83,9 @@ export const parseV2Link = (link: string): VMessV2 | undefined => {
 export const toV1Link = (link: string): string => {
   if (!isVMessLink(link)) return '';
   if (isVMessLinkV1(link)) return link;
-  const { v, type, id, port, add, ...others} = parseV2Link(link);
+  const parsed = parseV2Link(link);
+  if (!parsed) return '';
+  const { v, type, id, port, add, ...others} = parsed;
   const searchParams = new URLSearchParams();
   Object.keys(others).forEach(k => {
     const newKey = v2ToV1Mapper[k] || k;
@@ -97,6 +99,7 @@ export const toV2Link = (link: string): string => {
   if (!isVMessLink(link)) return '';
   if (isVMessLinkV2(link)) return link;
   const v2 = parseV1Link(link);
+  if (!v2) return '';
   return `vmess://${btoa(JSON.stringify({ ...v2, v: '2' }))}`;
 };
 
