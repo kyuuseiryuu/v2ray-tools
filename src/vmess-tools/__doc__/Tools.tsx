@@ -43,6 +43,9 @@ const Tools: React.FC<Props> = () => {
     if (obj) {
       setQ(objToQuantumult(obj));
       setQX((objToQuantumultX(obj)));
+    } else {
+      setQ('');
+      setQX('');
     }
   }, [link]);
   return (
