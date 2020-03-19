@@ -1,8 +1,8 @@
 {
-  "vendors.css": "/v2ray-tools/static/css/vendors.cc3dd743e393e4895045.css",
+  "vendors.css": "/v2ray-tools/static/css/vendors.b2f204ab7e7ad03ab034.css",
   "vendors.js": "/v2ray-tools/static/js/vendors.ff84fc6b.js",
-  "app.js": "/v2ray-tools/static/js/app.cc3dd743e393e4895045.js",
+  "app.js": "/v2ray-tools/static/js/app.b2f204ab7e7ad03ab034.js",
   "src-doc-index.js": "/v2ray-tools/static/js/src-doc-index.3a6424e2.js",
-  "src-vmess-tools-doc-tools.js": "/v2ray-tools/static/js/src-vmess-tools-doc-tools.c637abd9.js",
+  "src-vmess-tools-doc-tools.js": "/v2ray-tools/static/js/src-vmess-tools-doc-tools.c1a3ab8b.js",
   "index.html": "/v2ray-tools/index.html"
 }
