@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Empty, Form, Icon, Input, message, Popover} from "antd";
-import {toV1Link, toV2Link} from "../index";
+import {objToQuantumult, objToQuantumultX, parseV1Link, parseV2Link, toV1Link, toV2Link} from "../index";
 import QRCode from 'qrcode.react';
 import copy from 'clipboard-copy';
 
@@ -34,9 +34,16 @@ const Tools: React.FC<Props> = () => {
   const [link, setLink] = useState('');
   const [linkV1, setLinkV1] = useState('');
   const [linkV2, setLinkV2] = useState('');
+  const [q, setQ] = useState('');
+  const [qx, setQX]= useState('');
   useEffect(() => {
     setLinkV1(toV1Link(link));
     setLinkV2(toV2Link(link));
+    const obj = parseV1Link(link) || parseV2Link(link);
+    if (obj) {
+      setQ(objToQuantumult(obj));
+      setQX((objToQuantumultX(obj)));
+    }
   }, [link]);
   return (
     <div>
@@ -65,6 +72,24 @@ const Tools: React.FC<Props> = () => {
             <Form.Item label={(<PopoverQRCode data={linkV2}>VMess V2</PopoverQRCode>)}>
               <div style={{ wordBreak: "break-word" }}>
                 {linkV2}
+              </div>
+            </Form.Item>
+          )
+        }
+        {
+          qx && (
+            <Form.Item label={'Quantumult X'}>
+              <div style={{ wordBreak: "break-word" }}>
+                {qx}
+              </div>
+            </Form.Item>
+          )
+        }
+        {
+          q && (
+            <Form.Item label={(<PopoverQRCode data={q}>Quantumult</PopoverQRCode>)}>
+              <div style={{ wordBreak: "break-word" }}>
+                {q}
               </div>
             </Form.Item>
           )

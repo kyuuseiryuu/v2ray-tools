@@ -111,4 +111,23 @@ export const objToV2Link = (obj: VMessV2): string => {
   return `vmess://${btoa(JSON.stringify({ ...obj, v: '2' }))}`;
 };
 
+export const objToQuantumult = (obj: VMessV2, group: string = 'v2ray-tools'): string => {
+  let s = `${obj.ps}= vmess, ${obj.add}, ${obj.port}, ${obj.type || 'chacha20-ietf-poly1305'}, "${obj.id}", over-tls=${obj.tls}`;
+  s = `${s}, certificate=0, group=${group}`;
+  if (obj.net === 'ws') {
+    s = `${s}, obfs=ws`;
+    if (obj.path) s = `${s}, obfs-path="${obj.path}"`;
+    if (obj.host) s = `${s}, obfs-header="Host: ${obj.host}"`;
+  }
+  return `vmess://${btoa(s)}`;
+};
 
+export const objToQuantumultX = (obj: VMessV2): string => {
+  let s = `vmess=${obj.add}:${obj.port}, method=${obj.type||'none'}, password=${obj.id}, fast-open=false, udp-relay=false, tag=${obj.ps}`;
+  if (obj.net === 'ws') {
+    s = `${s}, obfs=ws`;
+    if (obj.path) s = `${s}, obfs-uri=${obj.path}`;
+    if (obj.host) s = `${s}, obfs-host=${obj.host}`;
+  }
+  return s;
+};
