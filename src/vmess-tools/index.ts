@@ -85,7 +85,19 @@ export const toV1Link = (link: string): string => {
   if (isVMessLinkV1(link)) return link;
   const parsed = parseV2Link(link);
   if (!parsed) return '';
-  const { v, type, id, port, add, ...others} = parsed;
+  return objToV1Link(parsed);
+};
+
+export const toV2Link = (link: string): string => {
+  if (!isVMessLink(link)) return '';
+  if (isVMessLinkV2(link)) return link;
+  const v2 = parseV1Link(link);
+  if (!v2) return '';
+  return objToV2Link(v2);
+};
+
+export const objToV1Link = (obj: VMessV2): string => {
+  const { v, type, id, port, add, ...others} = obj;
   const searchParams = new URLSearchParams();
   Object.keys(others).forEach(k => {
     const newKey = v2ToV1Mapper[k] || k;
@@ -95,11 +107,8 @@ export const toV1Link = (link: string): string => {
   return `vmess://${btoa(`${type}:${id}@${add}:${port}`)}?${decodeURIComponent(searchParams.toString())}`;
 };
 
-export const toV2Link = (link: string): string => {
-  if (!isVMessLink(link)) return '';
-  if (isVMessLinkV2(link)) return link;
-  const v2 = parseV1Link(link);
-  if (!v2) return '';
-  return `vmess://${btoa(JSON.stringify({ ...v2, v: '2' }))}`;
+export const objToV2Link = (obj: VMessV2): string => {
+  return `vmess://${btoa(JSON.stringify({ ...obj, v: '2' }))}`;
 };
+
 
