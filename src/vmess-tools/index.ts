@@ -125,7 +125,7 @@ export const objToQuantumult = (obj: VMessV2, group: string = 'v2ray-tools'): st
 export const objToQuantumultX = (obj: VMessV2): string => {
   let s = `vmess=${obj.add}:${obj.port}, method=${obj.type||'none'}, password=${obj.id}, fast-open=false, udp-relay=false, tag=${obj.ps}`;
   if (obj.net === 'ws') {
-    s = `${s}, obfs=ws${obj.port === 443 ? 's' : ''}`;
+    s = `${s}, obfs=ws${obj.tls ? 's' : ''}`;
     if (obj.path) s = `${s}, obfs-uri=${obj.path}`;
     if (obj.host) s = `${s}, obfs-host=${obj.host}`;
   }
